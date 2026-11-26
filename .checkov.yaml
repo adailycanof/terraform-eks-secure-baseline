@@ -1,0 +1,5 @@
+# Checkov runs as a soft-fail second opinion; Trivy is the blocking gate.
+compact: true
+quiet: true
+skip-path:
+  - .terraform

@@ -1,0 +1,11 @@
+# Every exception needs a reason, an owner and an expiry date. An expired
+# entry stops matching, so the finding fails CI again and gets reviewed.
+misconfigurations:
+  - id: AWS-0104
+    paths:
+      - "**/modules/eks/node_groups.tf"
+    statement: >-
+      Worker nodes need outbound HTTPS through NAT to pull images and reach AWS
+      APIs. Risk accepted for dev; prod replaces this with VPC endpoints
+      (ECR, S3, STS, EKS) and an egress firewall allow-list. Owner: platform team.
+    expired_at: 2027-03-31

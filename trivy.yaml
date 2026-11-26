@@ -1,0 +1,8 @@
+# Shared by CI and scripts/local-checks.sh
+severity:
+  - HIGH
+  - CRITICAL
+misconfiguration:
+  scanners:
+    - terraform
+ignorefile: .trivyignore.yaml
