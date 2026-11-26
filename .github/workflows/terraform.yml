@@ -44,6 +44,8 @@ jobs:
           tflint_version: v0.59.1
 
       - name: tflint
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # avoids the anonymous API rate limit when fetching the AWS ruleset
         run: |
           tflint --init
           tflint --recursive --config "$GITHUB_WORKSPACE/.tflint.hcl" --format compact
@@ -105,14 +107,14 @@ jobs:
           framework: terraform
           config_file: .checkov.yaml
           output_format: sarif
-          output_file_path: checkov.sarif
+          output_file_path: checkov-results
           soft_fail: true
 
       - name: Upload Checkov SARIF
         if: always()
         uses: github/codeql-action/upload-sarif@915412ff23e8b7659517e607487dbeae018f2934 # v4.39.5
         with:
-          sarif_file: checkov.sarif
+          sarif_file: checkov-results/results_sarif.sarif
           category: checkov
 
   plan:
